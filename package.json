@@ -1,0 +1,119 @@
+{
+  "name": "@applaud/webpack-modernizr-loader",
+  "version": "1.0.0",
+  "description": "Get your modernizr build bundled with webpack, use modernizr with webpack easily",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Applaud-devpack/-webpack-modernizr-loader.git"
+  },
+  "homepage": "https://github.com/Applaud-devpack/-webpack-modernizr-loader",
+  "keywords": [
+    "modernizr",
+    "webpack",
+    "loader",
+    "applaud"
+  ],
+  "author": "Applaud",
+  "bugs": {
+    "url": "https://github.com/Applaud-devpack/-webpack-modernizr-loader"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">= 4.3 < 5.0.0 || >= 5.10"
+  },
+  "dependencies": {
+    "modernizr": "^3.5.0",
+    "loader-utils": "^2.0.3"
+  },
+  "devDependencies": {
+    "@applaud/webpack": "^1.0.1",
+    "ava": "^0.25.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.14.0",
+    "eslint": "^4.1.1",
+    "eslint-plugin-ava": "^4.2.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-itgalaxy": "^64.0.0",
+    "eslint-plugin-jest": "^21.0.0",
+    "eslint-plugin-jsx-a11y": "^6.0.0",
+    "eslint-plugin-lodash": "^2.4.3",
+    "eslint-plugin-node": "^6.0.0",
+    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-unicorn": "^4.0.1",
+    "husky": "^0.14.0",
+    "lint-staged": "^6.1.0",
+    "npm-run-all": "^4.0.0",
+    "npmpub": "^3.1.0",
+    "nyc": "^11.0.2",
+    "pify": "^3.0.0",
+    "prettier": "^1.5.2",
+    "remark-cli": "^5.0.0",
+    "remark-preset-lint-itgalaxy": "^12.0.0",
+    "tempy": "^0.2.0"
+  },
+  "peerDependencies": {
+    "@applaud/webpack": "^1.0.1"
+  },
+  "scripts": {
+    "precommit": "lint-staged",
+    "lint:prettify": "prettier --list-different '{lib,__tests__}/**/*.{js,jsx}' '*.js'",
+    "lint:markdown": "remark . -i .gitignore -f -q",
+    "lint:script": "eslint . '.*.js' --ignore-path .gitignore --ext '.js,.jsx'",
+    "lint": "npm-run-all -l -p lint:**",
+    "prettify": "prettier --write '{lib,__tests__}/**/*.{js,jsx}' '*.js'",
+    "fix:eslint": "eslint . '.*.js' --fix --ignore-path .gitignore --ext '.js,.jsx'",
+    "fix": "npm-run-all -l prettify -p 'fix:**'",
+    "pretest": "npm run lint",
+    "test-only": "nyc ava --verbose '**/__tests__/*.js'",
+    "test": "npm run test-only",
+    "release": "npmpub"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "ava": {
+    "require": "babel-register",
+    "concurrency": 5,
+    "babel": "inherit"
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-itgalaxy"
+    ]
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "sourceType": "script"
+    },
+    "rules": {
+      "sort-keys": "off"
+    },
+    "extends": [
+      "plugin:itgalaxy/ava",
+      "plugin:itgalaxy/esnext",
+      "plugin:itgalaxy/node"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/**/*.js"
+        ],
+        "parserOptions": {
+          "sourceType": "module"
+        },
+        "rules": {
+          "node/no-unsupported-features": "off"
+        }
+      }
+    ],
+    "root": true
+  }
+}
